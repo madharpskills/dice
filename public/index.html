@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play dice</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app" class="main-content">
+        <button v-for="die in dice" class="die" title="Hold" @click="hold">
+            {{die}}
+        </button>
+        <button @click="newRoll" class="roll">Roll</button>
+        <div class="score">
+            <h2>Score</h2>
+            <ul>
+                <li>Selected</li>
+                <li>Round</li>
+                <li>Total</li>
+            </ul>
+        </div>
+        <div class="player-section">
+            <h2>Players</h2>
+            <ul>
+                <li v-for="player in players">{{player.name}}<button @click="removePlayer(player.name)">Remove</button></li>
+            </ul>
+            <input type="text" v-model="tempusername" placeholder="e.g. luke skywalker"><button @click="addPlayer">Add player</button>
+        </div>
+        <button @click="isHelpHidden = !isHelpHidden" class="help">Help</button>
+        <div v-if="!isHelpHidden">
+            <h2>Help</h2>
+            <p>
+                <h4>Rules:</h4>
+                <p>Each player gets 6 dice</p>
+                <p>Roll all six, then choose dice to hold from that roll for points
+                <p>Choose to roll again with remaining dice or pass turn</p>
+                <p>If no dice in a roll yield points then the turn is bust</p>
+                <p>First to 4000 points wins</p>
+
+                <h4>Points system:</h4>
+                <p>A 1 is worth 100pts, 5 is worth 50</p>
+                <p>Three of a kind is worth that number x100 (i.e. three 2s is worth 200)</p>
+                <p>Three 1s are worth 1000 points</p>
+                <p>Four or more of a kind is worth double that of three of a kind</p>
+                <p>Four 4s is worth 800, five 4s is 1600</p>
+            </p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                isHelpHidden: true,
+                tempusername: '',
+                players: [
+                    { name: "Player 1", score: 100 }
+                ],
+                dice: [1, 2, 3, 4, 5, 6]
+            },
+            methods: {
+                newRoll() {
+                    let rollResults = []
+                    for (var i = 0; i < 6; i++) {
+                        rollResults.push((Math.floor(Math.random() * 6) + 1))
+                    }
+                    this.dice = rollResults
+                },
+                addPlayer() {
+                    this.players.push({ name:this.tempusername, score: 0 })
+                    this.tempusername = ''
+                },
+                removePlayer(name) {
+                    let index = this.players.map(el => el.name).indexOf(name)
+                    this.players = this.players.splice(index - 1, 1)
+                    // this.tempusername = ''
+                },
+                hold() {
+                    //remove die
+                    //call add round score
+                },
+                endTurn() {
+                    //add to total score
+                }
+
+            }
+        })
+    </script>
+</body>
+</html>
