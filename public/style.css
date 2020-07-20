@@ -1,7 +1,6 @@
 body {
     color: #333333;
     font-family: arial;
-    max-width: 400px;
     margin: 0 auto;
     padding: 0 16px;
 
@@ -21,6 +20,13 @@ button {
 
 .main-content {
     position: relative;
+    max-width: 400px;
+    float: left;
+}
+
+.side-content {
+    max-width: 200px;
+    float: left;
 }
 
 .die {
