@@ -9,19 +9,7 @@
 <body>
     <div id="app">
         <div class="side-content">
-            <h1>Side nav</h1>
-        </div>
-        <div class="main-content">
-            <button v-for="die in dice" class="die" title="Hold" @click="hold">{{die}}</button>
-            <button @click="newRoll" class="roll">Roll</button>
-            <div class="score">
-                <h2>Score</h2>
-                <ul>
-                    <li>Selected</li>
-                    <li>Round</li>
-                    <li>Total</li>
-                </ul>
-            </div>
+            <h1>Play a dice game</h1>
             <div class="player-section">
                 <h2>Players</h2>
                 <ul>
@@ -33,18 +21,34 @@
             <div v-if="!isHelpHidden">
                 <h2>Help</h2>
                 <h4>Rules:</h4>
-                <p>Each player gets 6 dice</p>
-                <p>Roll all six, then choose dice to hold from that roll for points
-                    <p>Choose to roll again with remaining dice or pass turn</p>
-                    <p>If no dice in a roll yield points then the turn is bust</p>
-                <p>First to 4000 points wins</p>
+                <p>Each player gets 6 dice.</p>
+                <p>Roll all six, then choose dice to hold from that roll for points.
+                <p>Choose to roll again with remaining dice or pass turn.</p>
+                <p>If no dice in a roll yield points, then the turn is bust.</p>
+                <p>First player to earn 4000 points wins.</p>
                 
                 <h4>Points system:</h4>
-                <p>A 1 is worth 100pts, 5 is worth 50</p>
+                <p>1 is worth 100 points, 5 is worth 50</p>
                 <p>Three of a kind is worth that number x100 (i.e. three 2s is worth 200)</p>
                 <p>Three 1s are worth 1000 points</p>
-                <p>Four or more of a kind is worth double that of three of a kind</p>
+                <p>Four or more of a kind is worth double the points of three of a kind</p>
                 <p>Four 4s is worth 800, five 4s is 1600</p>
+            </div>
+        </div>
+        <div class="main-content">
+            <button v-for="die in dice" class="die" title="Hold" @click="hold(die)">{{die}}</button> 
+            <button @click="newRoll" class="roll">Roll</button>
+            <div v-if="true" class="hold">
+                <h2>Held</h2>
+                <button v-for="die in heldDice" class="die" title="Return" @click="returnDie(die)">{{die}}</button>
+            </div>
+            <div class="score">
+                <h2>Score</h2>
+                <ul>
+                    <li>Selected</li>
+                    <li>Round</li>
+                    <li>Total</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -58,7 +62,8 @@
                 players: [
                     { name: "Player 1", score: 100 }
                 ],
-                dice: [1, 2, 3, 4, 5, 6]
+                dice: [1, 2, 3, 4, 5, 6],
+                heldDice: []
             },
             methods: {
                 newRoll() {
@@ -75,9 +80,13 @@
                 removePlayer(name) {
                     this.players = this.players.filter(el => el.name !== name)
                 },
-                hold() {
-                    //remove die
-                    //call add round score
+                hold(die) {
+                    this.dice = this.dice.filter(el => el !== die)
+                    this.heldDice.push(die)
+                },
+                returnDie(die) {
+                    this.heldDice = this.heldDice.filter(el => el !== die)
+                    this.dice.push(die)
                 },
                 endTurn() {
                     //add to total score
