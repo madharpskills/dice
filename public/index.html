@@ -36,8 +36,12 @@
             </div>
         </div>
         <div class="main-content">
-            <button v-for="die in dice" class="die" title="Hold" @click="hold(die)">{{die}}</button> 
-            <button @click="newRoll" class="roll">Roll</button>
+            <div class="dice-area">
+                <button v-for="die in dice" class="die" title="Hold" @click="hold(die)">{{die}}</button> 
+            </div>
+            <div class="roll-button">
+                <button @click="newRoll" class="roll">Roll</button>
+            </div>
             <div v-if="true" class="hold">
                 <h2>Held</h2>
                 <button v-for="die in heldDice" class="die" title="Return" @click="returnDie(die)">{{die}}</button>
@@ -91,7 +95,6 @@
                 endTurn() {
                     //add to total score
                 }
-
             }
         })
     </script>
