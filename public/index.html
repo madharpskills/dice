@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Play dice</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/dice.css">
 </head>
 <body>
     <div id="app">
@@ -37,7 +38,7 @@
         </div>
         <div class="main-content">
             <div class="dice-area">
-                <button v-for="die in dice" class="die" title="Hold" @click="hold(die)">{{die}}</button> 
+                <button v-for="die in dice" class="die" title="Hold" @click="hold(die)" id="die">{{die}}</button>
             </div>
             <div class="roll-button">
                 <button @click="newRoll" class="roll">Roll</button>
