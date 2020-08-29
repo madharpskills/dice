@@ -5,17 +5,11 @@
     float: left;
     background: #ffffff;
     color: rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0);
     padding: 4px;
     margin: 10px;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-#die {
-    background: rgb(39, 176, 221);
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
 }
