@@ -38,7 +38,9 @@
         </div>
         <div class="main-content">
             <div class="dice-area">
-                <button v-for="die in dice" class="die" title="Hold" @click="hold(die)" id="die">{{die}}</button>
+                <!-- <button v-for="die in dice" class="die" title="Hold" @click="hold(die)">{{die}}</button> -->
+                <input type="image" v-for="die in dice" class="die" title="Hold" @click="hold(die)"><img :src=die></input>
+                <!-- <input type="image" src="./img/die1.png"></input> -->
             </div>
             <div class="roll-button">
                 <button @click="newRoll" class="roll">Roll</button>
@@ -59,6 +61,14 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
     <script>
+        let dieOne = './img/die1.png'
+        let dieTwo = './img/die2.png'
+        let dieThree = './img/die3.png'
+        let dieFour = './img/die4.png'
+        let dieFive = './img/die5.png'
+        let dieSix = './img/die6.png'
+        let diceImages = [dieOne, dieTwo, dieThree, dieFour, dieFive, dieSix]
+
         var app = new Vue({
             el: '#app',
             data: {
@@ -67,7 +77,8 @@
                 players: [
                     { name: "Player 1", score: 100 }
                 ],
-                dice: [1, 2, 3, 4, 5, 6],
+                // dice: [1, 2, 3, 4, 5, 6],
+                dice: diceImages,
                 heldDice: []
             },
             methods: {
