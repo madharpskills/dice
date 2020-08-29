@@ -50,9 +50,9 @@
             <div class="score">
                 <h2>Score</h2>
                 <ul>
-                    <li>Selected</li>
-                    <li>Round</li>
-                    <li>Total</li>
+                    <li>Held: {{heldScore}}</li>
+                    <li>Round: {{roundScore}}</li>
+                    <li>Total: {{totalScore}}</li>
                 </ul>
             </div>
         </div>
@@ -68,7 +68,10 @@
                     { name: "Player 1", score: 100 }
                 ],
                 dice: [1, 2, 3, 4, 5, 6],
-                heldDice: []
+                heldDice: [],
+                heldScore: 0,
+                roundScore: 0,
+                totalScore: 0,
             },
             methods: {
                 newRoll() {
@@ -86,12 +89,58 @@
                     this.players = this.players.filter(el => el.name !== name)
                 },
                 hold(die) {
-                    this.dice = this.dice.filter(el => el !== die)
-                    this.heldDice.push(die)
+                    let heldDie = this.dice.find(targetDie => targetDie === die)
+                    let rm = this.dice.findIndex(targetDie => targetDie === die)
+
+                    this.heldDice.push(heldDie)
+                    this.dice.splice(rm, 1)
+                    this.calculateHeldScore(this.heldDice)
                 },
                 returnDie(die) {
-                    this.heldDice = this.heldDice.filter(el => el !== die)
-                    this.dice.push(die)
+                    let returnDie = this.heldDice.find(targetDie => targetDie === die)
+                    let rm = this.heldDice.findIndex(targetDie => targetDie === die)
+
+                    this.heldDice.splice(rm, 1)
+                    this.dice.push(returnDie)
+                    this.calculateHeldScore(this.heldDice)
+                },
+                calculateHeldScore(dice) {
+                    let score = 0
+                    let ones = dice.filter(die => die === 1)
+                    let twos = dice.filter(die => die === 2)
+                    let threes = dice.filter(die => die === 3)
+                    let fours = dice.filter(die => die === 4)
+                    let fives = dice.filter(die => die === 5)
+                    let sixes = dice.filter(die => die === 6)
+
+                    allDice = [ones, twos, threes, fours, fives, sixes]
+
+                    for (set of allDice) {
+                        if (set.length > 2) {
+                            score += this.calculateScoreMultiples(set[0], set.length - 2)
+                        }
+
+                        if (set[0] === 1 && set.length < 3) {
+                            for (die of set) {
+                                score += 100
+                            }
+                        }
+
+                        if (set[0] === 5 && set.length < 3) {
+                            for (die of set) {
+                                score += 50
+                            }
+                        }
+                    }
+
+                    this.heldScore = score
+                },
+                calculateScoreMultiples(dieValue, multiplier) {
+                    if (dieValue === 1) {
+                        dieValue = 10
+                    }
+                    let value = ((dieValue * 100) * multiplier)
+                    return value
                 },
                 endTurn() {
                     //add to total score
