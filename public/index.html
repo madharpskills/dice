@@ -51,6 +51,9 @@
             </div>
         </div>
         <div class="main-content">
+            <div class="turn-indicator">
+                It's <b>your</b> turn!
+            </div>
             <div class="dice-area">
                 <button v-for="die in dice" class="die" title="Hold" @click="hold(die)" id="die">{{die}}</button>
             </div>
@@ -60,6 +63,10 @@
             <div v-if="true" class="hold">
                 <h2>Held</h2>
                 <button v-for="die in heldDice" class="die" title="Return" @click="returnDie(die)">{{die}}</button>
+            </div>
+            <div class="game-buttons">
+                <button @click="">Score and roll again</button>
+                <button @click="">Score and pass</button>
             </div>
         </div>
     </div>

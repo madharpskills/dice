@@ -30,6 +30,10 @@ button {
     margin: 100px
 }
 
+.turn-indicator {
+    padding: 10%
+}
+
 .dice-area {
     float: left;
 }
@@ -43,4 +47,8 @@ button {
     position: relative;
     clear: both;
     padding: 5% 0%;
+}
+
+.game-buttons {
+    padding: 0% 0% 0% 10%
 }
