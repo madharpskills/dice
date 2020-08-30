@@ -1,0 +1,31 @@
+.score {
+    position: relative;
+    float: left;
+    clear: both;
+    padding: 0% 0% 0% 0%;
+
+}
+
+.player-section {
+    position: relative;
+    float: left;
+}
+
+.player-item {
+    padding: 10% 0%;
+
+}
+
+.player-info {
+    padding: 20% 0%;
+
+}
+
+.player-name {
+    padding: 20% 0%;
+
+}
+
+.remove-player {
+    padding: 0% 5%
+}

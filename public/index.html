@@ -6,15 +6,29 @@
     <title>Play dice</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/dice.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
 </head>
 <body>
     <div id="app">
-        <div class="side-content">
+        <div class="sidebar">
             <h1>Play a dice game</h1>
             <div class="player-section">
                 <h2>Players</h2>
                 <ul>
-                    <li v-for="player in players">{{player.name}}<button @click="removePlayer(player.name)">Remove</button></li>
+                    <li v-for="player in players" class="player-item">
+                        <div class="player-info">
+                            <div class="player-name">{{player.name}}</div>
+                            <div class="score">
+                                <h4>Score</h4>
+                                <ul>
+                                    <li>Held: {{heldScore}}</li>
+                                    <li>Round: {{roundScore}}</li>
+                                    <li>Total: {{totalScore}}</li>
+                                </ul>
+                            </div>
+                            <div class="remove-player"><button @click="removePlayer(player.name)">Remove</button></div>
+                        </div>
+                    </li>
                 </ul>
                 <input type="text" v-model="tempusername" placeholder="e.g. luke skywalker"><button @click="addPlayer">Add player</button>
             </div>
@@ -47,14 +61,6 @@
                 <h2>Held</h2>
                 <button v-for="die in heldDice" class="die" title="Return" @click="returnDie(die)">{{die}}</button>
             </div>
-            <div class="score">
-                <h2>Score</h2>
-                <ul>
-                    <li>Held: {{heldScore}}</li>
-                    <li>Round: {{roundScore}}</li>
-                    <li>Total: {{totalScore}}</li>
-                </ul>
-            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
@@ -65,7 +71,8 @@
                 isHelpHidden: true,
                 tempusername: '',
                 players: [
-                    { name: "Player 1", score: 100 }
+                    { name: "Player 1" },
+                    { name: "Player 2" }
                 ],
                 dice: [1, 2, 3, 4, 5, 6],
                 heldDice: [],
@@ -144,6 +151,7 @@
                 },
                 endTurn() {
                     //add to total score
+                    //check win condition
                 }
             }
         })
