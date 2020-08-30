@@ -23,11 +23,11 @@ If no dice in a roll yield points, then the turn is bust.
 First player to earn 4000 points wins.
 
 ##### Points system:
-1 is worth 100 points, 5 is worth 50
-Three of a kind is worth that number x100 (i.e. three 2s is worth 200)
-Three 1s are worth 1000 points
-Four or more of a kind is worth double the points of three of a kind
-Four 4s is worth 800, five 4s is 1600
+* 1 is worth 100 points, 5 is worth 50
+* Three of a kind is worth that number x100 (i.e. three 2s is worth 200)
+* Three 1s are worth 1000 points
+* Four or more of a kind is worth double the points of three of a kind
+* Four 4s is worth 800, five 4s is 1600
 
 
 ## Built With 👷
