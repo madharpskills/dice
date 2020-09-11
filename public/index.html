@@ -30,7 +30,10 @@
                         </div>
                     </li>
                 </ul>
-                <input type="text" v-model="tempusername" placeholder="e.g. luke skywalker"><button @click="addPlayer">Add player</button>
+                <div class="player-input">
+                    <input type="text" v-model="tempusername" placeholder="e.g. luke skywalker">
+                    <button @click="addPlayer">Add player</button>
+                </div>
             </div>
             <button @click="isHelpHidden = !isHelpHidden" class="help">Help</button>
             <div v-if="!isHelpHidden">
