@@ -2,6 +2,7 @@
     position: relative;
     float: left;
     clear: both;
+    padding: 0% 0% 15% 0%
 }
 
 .player-section {
@@ -10,7 +11,7 @@
 }
 
 .player-item {
-    padding: 0% 0% 0% 7%;
+    padding: 17% 0%;
 }
 
 .player-info {
@@ -21,12 +22,12 @@
     /* padding: 7% 0%; */
 }
 
-.remove-player {
-    padding: 0% 5%
+.rename-player {
+    padding: 0%
 }
 
-.player-input {
+.help {
     position: relative;
     float: left;
-    padding: 7%
+    padding: 7% 10%
 }
