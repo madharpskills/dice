@@ -13,31 +13,48 @@
         <div class="sidebar">
             <h1>Play a dice game</h1>
             <div class="player-section">
-                <h2>Players</h2>
-                <ul>
-                    <li v-for="player in players" class="player-item">
-                        <div class="player-info">
-                            <div class="player-name">
-                                <label for="name">{{player.name}}</label>
-                                <div v-if="!renaming" class="rename-player">
-                                    <button @click="renaming = !renaming">Rename</button>
-                                </div>
-                                <div v-if="renaming">
-                                    <input v-model="newName" type="text" name="name">
-                                    <button @click="renamePlayer(player.name, newName)">Submit</button>
-                                </div>
-                            </div>
-                            <div class="score">
-                                <h4>Score</h4>
-                                <ul>
-                                    <li>Held: {{heldScore}}</li>
-                                    <li>Round: {{roundScore}}</li>
-                                    <li>Total: {{totalScore}}</li>
-                                </ul>
-                            </div>
+                <div class="player-item">
+                    <div class="player-name">
+                        <h3>Player One: </h3>
+                        <label for="name">{{playerOne.name}}</label>
+                        <div v-if="!renaming.playerOne" class="rename-player">
+                            <button @click="renaming.playerOne = !renaming.playerOne">Rename</button>
                         </div>
-                    </li>
-                </ul>
+                        <div v-if="renaming.playerOne">
+                            <input v-model="playerOne.newName" type="text" name="name">
+                            <button @click="renamePlayer('playerOne', playerOne.newName)">Submit</button>
+                        </div>
+                    </div>
+                    <div class="score">
+                        <h4>Score</h4>
+                        <ul>
+                            <li>Held: {{playerOne.heldScore}}</li>
+                            <li>Round: {{playerOne.roundScore}}</li>
+                            <li>Total: {{playerOne.totalScore}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="player-item">
+                    <div class="player-name">
+                        <h3>Player Two: </h3>
+                        <label for="name">{{playerTwo.name}}</label>
+                        <div v-if="!renaming.playerTwo" class="rename-player">
+                            <button @click="renaming.playerTwo = !renaming.playerTwo">Rename</button>
+                        </div>
+                        <div v-if="renaming.playerTwo">
+                            <input v-model="playerTwo.newName" type="text" name="name">
+                            <button @click="renamePlayer('playerTwo', playerTwo.newName)">Submit</button>
+                        </div>
+                    </div>
+                    <div class="score">
+                        <h4>Score</h4>
+                        <ul>
+                            <li>Held: {{playerTwo.heldScore}}</li>
+                            <li>Round: {{playerTwo.roundScore}}</li>
+                            <li>Total: {{playerTwo.totalScore}}</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="help">
                 <button @click="isHelpHidden = !isHelpHidden">Help</button>
@@ -59,7 +76,7 @@
         </div>
         <div class="main-content">
             <div class="turn-indicator">
-                It's <b>your</b> turn!
+                It's <b>{{turn.name}}'s</b> turn!
             </div>
             <div class="dice-area">
                 <button v-for="die in dice" class="die" title="Hold" @click="hold(die)" id="die">{{die}}</button>
@@ -84,17 +101,13 @@
             data: {
                 isHelpHidden: true,
                 tempusername: '',
-                players: [
-                    { id: 1, name: 'Player 1' },
-                    { id: 2, name: 'Player 2' }
-                ],
-                renaming: false,
+                playerOne: { id: 1, name: 'Player One', newName: '', heldScore: 0, roundScore: 0, totalScore: 0, turn: true },
+                playerTwo: { id: 2, name: 'Player Two', newName: '', heldScore: 0, roundScore: 0, totalScore: 0, turn: false },
+                renaming: { playerOne: false, playerTwo: false },
                 newName: '',
+                turn: { player: 'playerOne', name: 'Player One'},
                 dice: [1, 2, 3, 4, 5, 6],
-                heldDice: [],
-                heldScore: 0,
-                roundScore: 0,
-                totalScore: 0,
+                heldDice: []
             },
             methods: {
                 newRoll() {
@@ -104,10 +117,9 @@
                     }
                     this.dice = rollResults
                 },
-                renamePlayer(oldName, newName) {
-                    this.renaming = !this.renaming
-                    let playerToRename = this.players.findIndex(player => player.name == oldName)
-                    this.players[playerToRename].name = newName
+                renamePlayer(player, newName) {
+                    this.renaming[player] = !this.renaming[player]
+                    this[player].name = newName
                 },
                 hold(die) {
                     let heldDie = this.dice.find(targetDie => targetDie === die)
@@ -115,7 +127,7 @@
 
                     this.heldDice.push(heldDie)
                     this.dice.splice(rm, 1)
-                    this.calculateHeldScore(this.heldDice)
+                    this.calculateHeldScore(this.heldDice, this.turn.player)
                 },
                 returnDie(die) {
                     let returnDie = this.heldDice.find(targetDie => targetDie === die)
@@ -123,9 +135,9 @@
 
                     this.heldDice.splice(rm, 1)
                     this.dice.push(returnDie)
-                    this.calculateHeldScore(this.heldDice)
+                    this.calculateHeldScore(this.heldDice, this.turn.player)
                 },
-                calculateHeldScore(dice) {
+                calculateHeldScore(dice, player) {
                     let score = 0
                     let ones = dice.filter(die => die === 1)
                     let twos = dice.filter(die => die === 2)
@@ -154,7 +166,7 @@
                         }
                     }
 
-                    this.heldScore = score
+                    this[player].heldScore = score
                 },
                 calculateScoreMultiples(dieValue, multiplier) {
                     if (dieValue === 1) {
