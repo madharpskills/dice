@@ -1,4 +1,4 @@
-# Dice game
+# Dice game 🎲
 
 If you have nothing else to pass the time
 
