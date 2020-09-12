@@ -64,7 +64,7 @@
                     <p>Roll all six, then choose dice to hold from that roll for points.
                     <p>Choose to roll again with remaining dice or pass turn.</p>
                     <p>If no dice in a roll yield points, then the turn is bust.</p>
-                    <p>First player to earn 4000 points wins.</p>
+                    <p>First player to earn 2000 points wins.</p>
                     <h4>Points system:</h4>
                     <p>1 is worth 100 points, 5 is worth 50</p>
                     <p>Three of a kind is worth that number x100 (i.e. three 2s is worth 200)</p>
@@ -90,7 +90,7 @@
             </div>
             <div class="game-buttons">
                 <button v-if="heldDice.length > 0" @click="reroll(turn.player, dice.length)">Score and roll again</button>
-                <button @click="">End Turn</button>
+                <button @click="endTurn(turn.player)">End Turn</button>
             </div>
         </div>
     </div>
@@ -186,23 +186,51 @@
                     this.heldDice = []
                     this.roll(numDice)
                     if (player == 'playerOne') {
-                        this.checkBust(this.dice, { player: 'playerTwo', name: 'Player Two' })
+                        this.checkBust(this.dice, player, { player: 'playerTwo', name: 'Player Two' })
                     } else {
-                        this.checkBust(this.dice, { player: 'playerOne', name: 'Player One' })
+                        this.checkBust(this.dice, player, { player: 'playerOne', name: 'Player One' })
                     }
                 },
-                checkBust(dice, nextPlayer) {
+                checkBust(dice, player, nextPlayer) {
                     let score = this.score(dice)
                     
                     if (score == 0) {
                         this.bust = true
+                        alert('Bust!')
+                        this[player].roundScore = 0
                         this.turn.player = nextPlayer.player
                         this.turn.name = nextPlayer.name
                     }
                 },
-                endTurn() {
-                    //add to total score
-                    //check win condition
+                endTurn(player) {
+                    this[player].roundScore += this[player].heldScore
+                    this[player].heldScore = 0
+                    this[player].totalScore += this[player].roundScore
+                    this[player].roundScore = 0
+
+                    this.dice = [1, 2, 3, 4, 5, 6]
+                    this.heldDice = []
+
+                    if (player == 'playerOne') {
+                        this.turn.player = 'playerTwo'
+                        this.turn.name = 'Player Two'
+                    } else {
+                        this.turn.player = 'playerOne'
+                        this.turn.name = 'Player One'
+                    }
+
+                    if (this[player].totalScore >= 2000) {
+                        alert(`${this[player].name} won!`)
+                        
+                        this.dice = [1, 2, 3, 4, 5, 6]
+                        this.heldDice = []
+
+                        this.playerOne.totalScore = 0
+                        this.playerTwo.totalScore = 0
+
+                        this.turn.player = 'playerOne'
+                        this.turn.name = 'Player One'
+                    }
                 }
             }
         })

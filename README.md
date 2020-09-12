@@ -20,7 +20,7 @@ Each player gets 6 dice.
 Roll all six, then choose dice to hold from that roll for points.
 Choose to roll again with remaining dice or pass turn.
 If no dice in a roll yield points, then the turn is bust.
-First player to earn 4000 points wins.
+First player to earn 2000 points wins.
 
 ##### Points system:
 
