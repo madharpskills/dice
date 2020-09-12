@@ -39,7 +39,8 @@
         <div class="main-content">
             <div class="dice-area">
                 <!-- <button v-for="die in dice" class="die" title="Hold" @click="hold(die)">{{die}}</button> -->
-                <input type="image" v-for="die in dice" class="die" title="Hold" @click="hold(die)"><img :src=die></input>
+                <!-- <input type="image" v-for="die in dice" class="die" title="Hold" @click="hold(die)"><img :src=die></input> -->
+                <button v-for="die in dice" class="die" title="Hold" @click="hold(die)"><img :src=die></button>
                 <!-- <input type="image" src="./img/die1.png"></input> -->
             </div>
             <div class="roll-button">
@@ -47,7 +48,8 @@
             </div>
             <div v-if="true" class="hold">
                 <h2>Held</h2>
-                <button v-for="die in heldDice" class="die" title="Return" @click="returnDie(die)">{{die}}</button>
+                <!-- <button v-for="die in heldDice" class="die" title="Return" @click="returnDie(die)">{{die}}</button> -->
+                <button v-for="die in heldDice" class="die" title="Return" @click="returnDie(die)"><img :src=die></button>
             </div>
             <div class="score">
                 <h2>Score</h2>
