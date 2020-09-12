@@ -81,16 +81,16 @@
             <div class="dice-area">
                 <button v-for="die in dice" class="die" title="Hold" @click="hold(die)" id="die">{{die}}</button>
             </div>
-            <div class="roll-button">
-                <button @click="newRoll" class="roll">Roll</button>
+            <div v-if="heldDice.length == 0" class="roll-button">
+                <button @click="roll(6)" class="roll">Roll</button>
             </div>
             <div v-if="true" class="hold">
                 <h2>Held</h2>
                 <button v-for="die in heldDice" class="die" title="Return" @click="returnDie(die)">{{die}}</button>
             </div>
             <div class="game-buttons">
-                <button @click="">Score and roll again</button>
-                <button @click="">Score and pass</button>
+                <button v-if="heldDice.length > 0" @click="reroll(turn.player, dice.length)">Score and roll again</button>
+                <button @click="">End Turn</button>
             </div>
         </div>
     </div>
@@ -101,18 +101,18 @@
             data: {
                 isHelpHidden: true,
                 tempusername: '',
-                playerOne: { id: 1, name: 'Player One', newName: '', heldScore: 0, roundScore: 0, totalScore: 0, turn: true },
-                playerTwo: { id: 2, name: 'Player Two', newName: '', heldScore: 0, roundScore: 0, totalScore: 0, turn: false },
+                playerOne: { id: 1, name: 'Player One', newName: '', heldScore: 0, roundScore: 0, totalScore: 0 },
+                playerTwo: { id: 2, name: 'Player Two', newName: '', heldScore: 0, roundScore: 0, totalScore: 0 },
                 renaming: { playerOne: false, playerTwo: false },
                 newName: '',
-                turn: { player: 'playerOne', name: 'Player One'},
+                turn: { player: 'playerOne', name: 'Player One' },
                 dice: [1, 2, 3, 4, 5, 6],
                 heldDice: []
             },
             methods: {
-                newRoll() {
+                roll(num) {
                     let rollResults = []
-                    for (var i = 0; i < 6; i++) {
+                    for (var i = 0; i < num; i++) {
                         rollResults.push((Math.floor(Math.random() * 6) + 1))
                     }
                     this.dice = rollResults
@@ -137,7 +137,7 @@
                     this.dice.push(returnDie)
                     this.calculateHeldScore(this.heldDice, this.turn.player)
                 },
-                calculateHeldScore(dice, player) {
+                score(dice) {
                     let score = 0
                     let ones = dice.filter(die => die === 1)
                     let twos = dice.filter(die => die === 2)
@@ -166,6 +166,11 @@
                         }
                     }
 
+                    return score
+                },
+                calculateHeldScore(dice, player) {
+                    let score = this.score(dice)
+
                     this[player].heldScore = score
                 },
                 calculateScoreMultiples(dieValue, multiplier) {
@@ -174,6 +179,26 @@
                     }
                     let value = ((dieValue * 100) * 2 ** multiplier)
                     return value
+                },
+                reroll(player, numDice) {
+                    this[player].roundScore += this[player].heldScore
+                    this[player].heldScore = 0
+                    this.heldDice = []
+                    this.roll(numDice)
+                    if (player == 'playerOne') {
+                        this.checkBust(this.dice, { player: 'playerTwo', name: 'Player Two' })
+                    } else {
+                        this.checkBust(this.dice, { player: 'playerOne', name: 'Player One' })
+                    }
+                },
+                checkBust(dice, nextPlayer) {
+                    let score = this.score(dice)
+                    
+                    if (score == 0) {
+                        this.bust = true
+                        this.turn.player = nextPlayer.player
+                        this.turn.name = nextPlayer.name
+                    }
                 },
                 endTurn() {
                     //add to total score
