@@ -81,7 +81,7 @@
             <div class="dice-area">
                 <button v-for="die in dice" class="die" title="Hold" @click="hold(die)" id="die">{{die}}</button>
             </div>
-            <div v-if="heldDice.length == 0" class="roll-button">
+            <div v-if="heldDice.length == 0 && dice.length == 0 || this.bust" class="roll-button">
                 <button @click="roll(6)" class="roll">Roll</button>
             </div>
             <div v-if="true" class="hold">

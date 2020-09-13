@@ -8,8 +8,9 @@ var app = new Vue({
         renaming: { playerOne: false, playerTwo: false },
         newName: '',
         turn: { player: 'playerOne', name: 'Player One' },
-        dice: [1, 2, 3, 4, 5, 6],
-        heldDice: []
+        dice: [],
+        heldDice: [],
+        bust: false
     },
     methods: {
         roll(num) {
@@ -18,6 +19,7 @@ var app = new Vue({
                 rollResults.push((Math.floor(Math.random() * 6) + 1))
             }
             this.dice = rollResults
+            this.bust = false
         },
         renamePlayer(player, newName) {
             this.renaming[player] = !this.renaming[player]
