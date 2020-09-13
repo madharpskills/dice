@@ -116,7 +116,7 @@ var app = new Vue({
             this[player].totalScore += this[player].roundScore
             this[player].roundScore = 0
 
-            this.dice = [1, 2, 3, 4, 5, 6]
+            this.dice = []
             this.heldDice = []
 
             if (player == 'playerOne') {
@@ -130,7 +130,7 @@ var app = new Vue({
             if (this[player].totalScore >= 2000) {
                 alert(`${this[player].name} won!`)
                 
-                this.dice = [1, 2, 3, 4, 5, 6]
+                this.dice = []
                 this.heldDice = []
 
                 this.playerOne.totalScore = 0
