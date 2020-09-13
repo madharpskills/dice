@@ -88,7 +88,11 @@ var app = new Vue({
             this[player].roundScore += this[player].heldScore
             this[player].heldScore = 0
             this.heldDice = []
-            this.roll(numDice)
+            if (numDice == 0) {
+                this.roll(6)
+            } else {
+                this.roll(numDice)
+            }
             if (player == 'playerOne') {
                 this.checkBust(this.dice, player, { player: 'playerTwo', name: 'Player Two' })
             } else {
