@@ -1,3 +1,11 @@
+// let dieOne = './img/die1.png'
+// let dieTwo = './img/die2.png'
+// let dieThree = './img/die3.png'
+// let dieFour = './img/die4.png'
+// let dieFive = './img/die5.png'
+// let dieSix = './img/die6.png'
+// let diceImages = [dieOne, dieTwo, dieThree, dieFour, dieFive, dieSix]
+
 var app = new Vue({
     el: '#app',
     data: {
@@ -9,6 +17,7 @@ var app = new Vue({
         newName: '',
         turn: { player: 'playerOne', name: 'Player One' },
         dice: [],
+        // dice: diceImages,
         heldDice: [],
         bust: false
     },
