@@ -1,7 +1,7 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
-  mode: 'none',
+  mode: 'development',
   module: {
     rules: [
       {
@@ -9,6 +9,12 @@ module.exports = {
         loader: 'vue-loader'
       }
     ]
+  },
+  entry: {
+    index: './src/main.js'
+  },
+  devServer: {
+    contentBase: './dist',
   },
   plugins: [
     new VueLoaderPlugin()
