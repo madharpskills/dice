@@ -1,4 +1,3 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require('webpack');
 
@@ -7,7 +6,7 @@ module.exports = {
     rules: [
       { test: /\.js$/, use: 'babel-loader' },
       { test: /\.vue$/, use: 'vue-loader' },
-      { test: /\.css$/, use: ['vue-style-loader', 'css-loader']},
+      { test: /\.css$/, use: [ 'vue-style-loader', { loader: 'css-loader', options: { esModule: false } } ] },
     ]
   },
   entry: './src/main.js',
@@ -17,9 +16,6 @@ module.exports = {
     hot: true,
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-    }),
     new VueLoaderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ]
