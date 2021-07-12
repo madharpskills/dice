@@ -18,7 +18,7 @@ button {
     margin: 10px
 }
 
-.side-content {
+.sidebar {
     max-width: 250px;
     float: left;
 }
@@ -28,6 +28,10 @@ button {
     max-width: 400px;
     float: left;
     margin: 100px
+}
+
+.turn-indicator {
+    padding: 10%
 }
 
 .dice-area {
@@ -45,13 +49,6 @@ button {
     padding: 5% 0%;
 }
 
-.score {
-    position: relative;
-    float: left;
-    clear: both;
-}
-
-.player-section {
-    position: relative;
-    float: left;
+.game-buttons {
+    padding: 33% 0% 0%
 }
