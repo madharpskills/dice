@@ -1,7 +1,7 @@
 <template>
     <div id="app">
-        <h1>Play a dice game</h1>
-        {{ message }}
+        <div><Sidebar/></div>
+        <div><MainContent/></div>
     </div>
 </template>
 
@@ -16,8 +16,8 @@ export default {
         MainContent
     },
     data: () => {
-        return { 
-            message: 'hello world'
+        return {
+
         }
     },
     methods: {
@@ -28,9 +28,22 @@ export default {
 
 <style>
 #app {
-    font-family: Helvetica, Arial, sans-serif;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+    color: #333333;
+    font-family: arial;
+    margin: 0 auto;
+    padding: 0 16px;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+button {
+    cursor: pointer;
+    border: 2px solid #000000;
+    background: #16606d;
+    color: white;
+    padding: 4px;
+    margin: 10px
 }
 </style>
