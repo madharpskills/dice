@@ -2,6 +2,7 @@
     <div class="sidebar">
         <h1>Play a dice game</h1>
         <div class="player-section">
+            <!-- TODO componentize players -->
             <div class="player-item">
                 <div class="player-name">
                     <h3>Player One: </h3>

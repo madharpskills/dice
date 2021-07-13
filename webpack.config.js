@@ -6,7 +6,8 @@ module.exports = {
     rules: [
       { test: /\.js$/, use: 'babel-loader' },
       { test: /\.vue$/, use: 'vue-loader' },
-      { test: /\.css$/, use: [ 'vue-style-loader', { loader: 'css-loader', options: { esModule: false } } ] },
+      { test: /\.css$/, use: ['vue-style-loader', { loader: 'css-loader', options: { esModule: false } }] },
+      { test: /\.png$/, use: [{ loader: 'url-loader', options: { outputPath: 'assets/img', esModule: false } }] }
     ]
   },
   entry: './src/main.js',

@@ -4,14 +4,14 @@
             It's <b>{{turn.name}}'s</b> turn!
         </div>
         <div class="dice-area">
-            <button v-for="die in dice" class="die" title="Hold" @click="hold(die)" id="die" v-bind:key="die">{{die}}</button>
+            <button v-for="die in dice" class="die" title="Hold" @click="hold(die)" id="die" v-bind:key="die"><img :src=die></button>
         </div>
         <div v-if="heldDice.length == 0 && dice.length == 0 || this.bust" class="roll-button">
             <button @click="roll(6)" class="roll">Roll</button>
         </div>
         <div v-if="true" class="hold">
             <h2>Held</h2>
-            <button v-for="die in heldDice" class="die" title="Return" @click="returnDie(die)" v-bind:key="die">{{die}}</button>
+            <button v-for="die in heldDice" class="die" title="Return" @click="returnDie(die)" v-bind:key="die"><img :src=die></button>
         </div>
         <div class="game-buttons">
             <button v-if="heldDice.length > 0" @click="reroll(turn.player, dice.length)">Score and roll again</button>
@@ -27,13 +27,14 @@ export default {
         // Dice
     },
     data: () => {
-        let dieOne = './img/die1.png'
-        let dieTwo = './img/die2.png'
-        let dieThree = './img/die3.png'
-        let dieFour = './img/die4.png'
-        let dieFive = './img/die5.png'
-        let dieSix = './img/die6.png'
+        let dieOne = require('../assets/img/die1.png')
+        let dieTwo = require('../assets/img/die2.png')
+        let dieThree = require('../assets/img/die3.png')
+        let dieFour = require('../assets/img/die4.png')
+        let dieFive = require('../assets/img/die5.png')
+        let dieSix = require('../assets/img/die6.png')
         let diceImages = [dieOne, dieTwo, dieThree, dieFour, dieFive, dieSix]
+        
         return { 
             turn: { player: 'playerOne', name: 'Player One' },
             // dice: [],
@@ -195,18 +196,10 @@ export default {
 }
 
 .die {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    float: left;
+    width: 60px;
+    height: 60px;
     background: #ffffff;
-    color: rgb(0, 0, 0);
     border: 2px solid rgb(0, 0, 0);
-    padding: 4px;
-    margin: 10px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: inline-block;
 }
 </style>

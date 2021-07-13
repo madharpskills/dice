@@ -24,13 +24,13 @@
     "@babel/preset-env": "^7.12.1",
     "babel-loader": "^8.2.1",
     "css-loader": "^5.0.1",
+    "url-loader": "^4.1.1",
     "vue-loader": "^15.9.5",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.12",
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "html-webpack-plugin": "^4.5.0",
     "rimraf": "^3.0.2",
     "vue": "^2.6.12",
     "webpack": "^5.5.0",
