@@ -34,7 +34,7 @@ export default {
         let dieFive = require('../assets/img/die5.png')
         let dieSix = require('../assets/img/die6.png')
         let diceImages = [dieOne, dieTwo, dieThree, dieFour, dieFive, dieSix]
-        
+
         return { 
             turn: { player: 'playerOne', name: 'Player One' },
             // dice: [],
@@ -196,8 +196,8 @@ export default {
 }
 
 .die {
-    width: 60px;
-    height: 60px;
+    width: 62px;
+    height: 62px;
     background: #ffffff;
     border: 2px solid rgb(0, 0, 0);
     display: inline-block;
