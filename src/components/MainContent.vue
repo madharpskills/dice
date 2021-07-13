@@ -171,13 +171,6 @@ export default {
 </script>
 
 <style>
-.main-content {
-    position: relative;
-    max-width: 400px;
-    float: left;
-    margin: 100px
-}
-
 .turn-indicator {
     padding: 10%
 }
@@ -199,5 +192,21 @@ export default {
 
 .game-buttons {
     padding: 33% 0% 0%
+}
+
+.die {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    float: left;
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0);
+    padding: 4px;
+    margin: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

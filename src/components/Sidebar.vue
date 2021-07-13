@@ -77,11 +77,6 @@ export default {
 </script>
 
 <style>
-.sidebar {
-    max-width: 250px;
-    float: left;
-}
-
 .score {
     position: relative;
     float: left;

@@ -1,7 +1,7 @@
 <template>
     <div id="app">
-    <Sidebar/>
-    <MainContent/>
+    <div class="container side-container"><Sidebar/></div>
+    <div class="container main-container"><MainContent/></div>
     </div>
 </template>
 
@@ -34,8 +34,6 @@ export default {
     padding: 0 16px;
 
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
 }
 
 button {
@@ -45,5 +43,17 @@ button {
     color: white;
     padding: 4px;
     margin: 10px
+}
+
+.side-container {
+    max-width: 250px;
+    float: left;
+}
+
+.main-container {
+    position: relative;
+    max-width: 400px;
+    float: left;
+    margin: 100px
 }
 </style>
