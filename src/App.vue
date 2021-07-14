@@ -53,14 +53,14 @@
             It's <b>{{turn.name}}'s</b> turn!
         </div>
         <div class="dice-area">
-            <button v-for="die in dice" class="die" title="Hold" @click="hold(die)" id="die" v-bind:key="die.image"><img :src=die.image></button>
+            <button v-for="die in dice" class="die" title="Hold" @click="hold(die)" id="die" v-bind:key="die"><img :src=die.image></button>
         </div>
         <div v-if="heldDice.length == 0 && dice.length == 0 || this.bust" class="roll-button">
             <button @click="roll(6)" class="roll">Roll</button>
         </div>
         <div v-if="true" class="hold">
             <h2>Held</h2>
-            <button v-for="die in heldDice" class="die" title="Return" @click="returnDie(die)" v-bind:key="die.image"><img :src=die.image></button>
+            <button v-for="die in heldDice" class="die" title="Return" @click="returnDie(die)" v-bind:key="'held' + die"><img :src=die.image></button>
         </div>
         <div class="game-buttons">
             <button v-if="heldDice.length > 0" @click="reroll(turn.player, dice.length)">Score and roll again</button>
@@ -91,7 +91,7 @@ export default {
         return {
             allDice,
             turn: { player: 'playerOne', name: 'Player One' },
-            dice: allDice,
+            dice: [],
             heldDice: [],
             bust: false,
             playerOne: { id: 1, name: 'Player One', newName: '', heldScore: 0, roundScore: 0, totalScore: 0 },
@@ -103,7 +103,9 @@ export default {
         roll(num) {
             let rollResults = []
             for (var i = 0; i < num; i++) {
-                rollResults.push(this.allDice.find((die) => die.value === (Math.floor(Math.random() * 6) + 1)))
+                let random = Math.floor(Math.random() * 6) + 1
+                let die = Object.assign({}, this.allDice.find((die) => die.value === random))
+                rollResults.push(die)
             }
             this.dice = rollResults
             this.bust = false
@@ -188,9 +190,7 @@ export default {
             }
         },
         checkBust(dice, player, nextPlayer) {
-            console.log('meeseeks', dice)
             let diceValues = dice.map((die) => die.value)
-            console.log('meeseeks2', diceValues)
             let score = this.score(diceValues)
             
             if (score == 0) {
@@ -199,6 +199,7 @@ export default {
                 this[player].roundScore = 0
                 this.turn.player = nextPlayer.player
                 this.turn.name = nextPlayer.name
+                this.dice = []
             }
         },
         endTurn(player) {
